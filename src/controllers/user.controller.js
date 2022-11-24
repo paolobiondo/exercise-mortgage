@@ -11,8 +11,8 @@ class userController {
         
         if(!username || !codice_fiscale) return res.status(400).json({'error':'fill all fields'})
 
-        const user = await new userModel()
-        const response = await user.addUser(username,codice_fiscale)
+        const user = await new userModel(username,codice_fiscale)
+        const response = await user.addUser()
         return res.status(response.status).json(response.content)
     }
 }
