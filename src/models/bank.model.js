@@ -35,13 +35,11 @@ module.exports = class Bank {
             let querySQL = `SELECT * FROM Bank WHERE name='${name}'`
             const conn = await mysql.createConnection(dbConfig)
             const [rows] = await conn.query(querySQL)
-            console.log(rows)
             let bank = []
             if(rows.length > 0) {
                 bank = new Bank(rows[0].name,JSON.stringify(rows[0].additional))
                 bank.id = rows[0].id
             }
-            console.log(bank)
             await conn.end()
             return bank
         } catch(err) {
