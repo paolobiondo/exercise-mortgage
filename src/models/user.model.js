@@ -16,7 +16,7 @@ module.exports = class User {
         try {
             if(user.length == 0) {
                 const conn = await mysql.createConnection(dbConfig)
-                querySQL = `INSERT INTO User (username,codice_fiscale) VALUES ('${username}', '${codice_fiscale}');`
+                const querySQL = `INSERT INTO User (username,codice_fiscale) VALUES ('${this.username}', '${this.codice_fiscale}');`
                 const record =  await conn.query(querySQL)
                 if(record) console.log("User Added")
                 await conn.end()
@@ -35,8 +35,11 @@ module.exports = class User {
             let querySQL = `SELECT * FROM User WHERE username='${username}'`
             const conn = await mysql.createConnection(dbConfig)
             const [rows] = await conn.query(querySQL)
-            const user = []
-            new User(rows[0].id,rows[0].username,rows[0].codice_fiscale)
+            let user = []
+            if(rows.length > 0) {
+                user = new User(rows[0].username,rows[0].codice_fiscale)
+                user.id = rows[0].id
+            }
             await conn.end()
             return user
         } catch(err) {

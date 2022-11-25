@@ -16,8 +16,9 @@ CREATE TABLE IF NOT EXISTS `Product` (
 );
 
 CREATE TABLE IF NOT EXISTS `Bank` (
-    `id`        INT(11) NOT NULL auto_increment,
-    `name`      VARCHAR(255) NOT NULL,
+    `id`                INT(11) NOT NULL auto_increment,
+    `name`              VARCHAR(255) NOT NULL,
+    `additional`        JSON, 
     PRIMARY KEY (`id`)
 );
 
@@ -34,6 +35,6 @@ CREATE TABLE IF NOT EXISTS `Prospect` (
 	
     PRIMARY KEY (`id`),
     FOREIGN KEY (`bank`) REFERENCES Bank(`id`),
-    FOREIGN KEY (`product`) REFERENCES Product(`id`),
+    FOREIGN KEY (`product`) REFERENCES Product(`id`)
 );
 
