@@ -26,15 +26,17 @@ CREATE TABLE IF NOT EXISTS `Prospect` (
     `id`            INT(11) NOT NULL auto_increment,
     `bank`          INT(11),
     `product`       INT(11),
-    `user_cf`       VARCHAR(16),
+    `user`          INT(11),
     `instalment`    DECIMAL(6,2),
-    `tan`           DECIMAL(6,2),
-    `taeg`          DECIMAL(6,2),
+    `tan`           double,
+    `taeg`          double,
     `additional`    JSON, 
+    `created`       DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
 	
     PRIMARY KEY (`id`),
     FOREIGN KEY (`bank`) REFERENCES Bank(`id`),
+    FOREIGN KEY (`user`) REFERENCES User(`id`),
     FOREIGN KEY (`product`) REFERENCES Product(`id`)
 );
 

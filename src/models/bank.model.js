@@ -46,6 +46,25 @@ module.exports = class Bank {
             console.log(`error: ${err}`)
         }
     }
+
+    static async retrieveBankByID(idBank) {
+        try {
+            let querySQL = `SELECT * FROM Bank WHERE id='${idBank}'`
+            const conn = await mysql.createConnection(dbConfig)
+            const [rows] = await conn.query(querySQL)
+            let bank = []
+            if(rows.length > 0) {
+                bank = new Bank(rows[0].name, JSON.stringify(rows[0].additional))
+                bank.id = rows[0].id
+                return {'content':bank,'status':200}
+            } 
+            await conn.end()
+            return {'content':{'error':'bank not found'},'status':400}
+        } catch(err) {
+            console.log(`error: ${err}`)
+            return {'content':{'error':'error while getting bank'},'status':500}
+        }
+    }
 }
 
 

@@ -3,6 +3,7 @@ const express = require("express")
 const userRouter = require('./src/routes/user.route')
 const bankRouter = require('./src/routes/bank.route')
 const productRouter = require('./src/routes/product.route')
+const prospectRouter = require('./src/routes/prospect.route')
 
 const port = process.env.PORT
 const server = express()
@@ -15,7 +16,7 @@ server.use(express.urlencoded({extended: true}))
 server.use("/api/v1/users", userRouter)
 server.use("/api/v1/banks", bankRouter)
 server.use("/api/v1/products", productRouter)
-
+server.use("/api/v1/prospects", prospectRouter)
 
 
 server.listen(port, () => {

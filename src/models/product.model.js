@@ -1,5 +1,6 @@
 const mysql = require('mysql2/promise')
 const dbConfig = require("../configs/db.config")
+const bankModel = require("../models/bank.model")
 
 module.exports = class Product {
     id = null
@@ -13,6 +14,8 @@ module.exports = class Product {
 
     async addProduct() {
         const product = await Product.retrieveProduct(this.name)
+        const bankObj = await bankModel.retrieveBankByID(this.bank)
+        if(bankObj.content.error) return bankObj
         try {
             if(product.length == 0) {
                 const conn = await mysql.createConnection(dbConfig)

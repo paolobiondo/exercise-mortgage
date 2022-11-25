@@ -9,7 +9,7 @@ class ProductController {
         const name = req.body.name
         const bank = req.body.bank
 
-        if(!name && !bank) return res.status(400).json({'error':'fill all fields'})
+        if(!name || !bank) return res.status(400).json({'error':'fill all fields'})
 
         const product = await new productModel(name, bank)
         const response = await product.addProduct()
