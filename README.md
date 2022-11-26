@@ -31,11 +31,11 @@ curl -X POST -d 'name=creditagricole' -d 'additional=[{"field":"codice_filiale"}
 ```
 curl -X POST -d 'name=mutuo50' -d 'bank=1' localhost:3000/api/v1/products/add
 ```
-- Add prospect: bank(int), product(int), user(int), instalment(decimal), tan(double), taeg(double)
+- Add prospect: bank(int), product(int), user(int), instalment(decimal), tan(double), taeg(double), additional(json)
 ```
 curl -X POST -d 'bank=1' -d 'product=1' -d 'user=1' -d 'instalment=540.32' -d 'tan=0.65' -d 'taeg=1.38' -d 'additional=[{"field":"email", "value":"filiale123@bnl.it"}]' localhost:3000/api/v1/prospects/add
 
-curl -X POST -d 'bank=2' -d 'product=1' -d 'user=1' -d 'instalment=540.32' -d 'tan=0.65' -d 'taeg=1.38' -d 'additional=[{"field":"codice_filiale", "value":"123456"}, {"field":"received", "value":"True"}]' localhost:3000/api/v1/prospects/add
+curl -X POST -d 'bank=2' -d 'product=1' -d 'user=1' -d 'instalment=540.32' -d 'tan=0.65' -d 'taeg=1.38' -d 'additional=[{"field":"codice_filiale", "value":"123456"}, {"field":"received", "value":"true"}]' localhost:3000/api/v1/prospects/add
 ```
 - Get prospect: id(int)
 ```
