@@ -9,9 +9,10 @@ MYSQL_PORT=mysql port
 MYSQL_HOST=127.0.0.1
 MYSQL_NAME=mysql databaae name
 ```
-3) get the sql code from db_construction.sql and run it in phpMyAdmin
+2) get the sql code from db_construction.sql and run it in phpMyAdmin
 
-2) run the command npm start
+3) run the command npm install
+4) run the command npm start
 
 ## Run APIs
 - Add user: name(string), codice_fiscale(string)
