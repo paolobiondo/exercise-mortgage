@@ -1,6 +1,6 @@
-const bankModel = require('../models/bank.model')
+import bankModel from "../models/bank.model.js";
 
-class bankController {
+class BankController {
     async addBank(req, res) {
         /*  API add a new bank
             method: POST
@@ -11,11 +11,9 @@ class bankController {
 
         if(!name) return res.status(400).json({'error':'fill name field'})
 
-        const bank = await new bankModel(name, additional)
+        const bank = new bankModel(name, additional)
         const response = await bank.addBank()
         return res.status(response.status).json(response.content)
     }
 }
-
-const bankControllerObj = new bankController()
-module.exports = bankControllerObj
+export default new BankController();

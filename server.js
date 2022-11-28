@@ -1,9 +1,12 @@
-require('dotenv/config')
-const express = require("express")
-const userRouter = require('./src/routes/user.route')
-const bankRouter = require('./src/routes/bank.route')
-const productRouter = require('./src/routes/product.route')
-const prospectRouter = require('./src/routes/prospect.route')
+import express from "express";
+import dotenv from 'dotenv'
+dotenv.config()
+
+import userRouter from "./src/routes/user.route.js";
+import bankRouter from "./src/routes/bank.route.js";
+import productRouter from "./src/routes/product.route.js";
+import prospectRouter from "./src/routes/prospect.route.js";
+
 
 const port = process.env.PORT
 const server = express()
@@ -20,5 +23,5 @@ server.use("/api/v1/prospects", prospectRouter)
 
 
 server.listen(port, () => {
-    console.log("server is listening...")
+    console.log(`server is listening ${port}...`)
 })

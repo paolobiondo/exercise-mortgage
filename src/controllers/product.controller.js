@@ -1,4 +1,4 @@
-const productModel = require('../models/product.model')
+import productModel from "../models/product.model.js";
 
 class ProductController {
     async addProduct(req, res) {
@@ -11,11 +11,11 @@ class ProductController {
 
         if(!name || !bank) return res.status(400).json({'error':'fill all fields'})
 
-        const product = await new productModel(name, bank)
+        const product = new productModel(name, bank)
         const response = await product.addProduct()
         return res.status(response.status).json(response.content)
     }
 }
 
-const productControllerObj = new ProductController()
-module.exports = productControllerObj
+
+export default new ProductController();

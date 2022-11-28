@@ -1,6 +1,6 @@
-const userModel = require('../models/user.model')
+import userModel from "../models/user.model.js";
 
-class userController {
+class UserController {
     async addUser(req, res) {
         /*  API add a new user
             method: POST
@@ -11,11 +11,10 @@ class userController {
         
         if(!username || !codice_fiscale) return res.status(400).json({'error':'fill all fields'})
 
-        const user = await new userModel(username,codice_fiscale)
+        const user = new userModel(username,codice_fiscale)
         const response = await user.addUser()
         return res.status(response.status).json(response.content)
     }
 }
 
-const userControllerObj = new userController()
-module.exports = userControllerObj
+export default new UserController();

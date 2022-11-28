@@ -1,8 +1,8 @@
-const {Router} = require('express')
-const bankController = require("../controllers/bank.controller") 
+import express from "express";
+import BankController from "../controllers/bank.controller.js";
 
-const router = Router()
+const router = express.Router();
 
-router.post('/add',bankController.addBank)
+router.post('/add',BankController.addBank)
 
-module.exports = router
+export default router;

@@ -1,4 +1,4 @@
-const prospectModel = require('../models/prospect.model')
+import prospectModel from "../models/prospect.model.js";
 
 class ProspectController {
     async addProspect(req, res) {
@@ -16,7 +16,7 @@ class ProspectController {
         
         if(!bank || !product || !user || !instalment || !tan || !taeg ) return res.status(400).json({'error':'fill all fields'})
 
-        const prospect = await new prospectModel(bank, product, user, instalment, tan, taeg, additional)
+        const prospect = new prospectModel(bank, product, user, instalment, tan, taeg, additional)
         const response = await prospect.addProspect()
         return res.status(response.status).json(response.content)
     }
@@ -35,5 +35,4 @@ class ProspectController {
     }
 }
 
-const prospectControllerObj = new ProspectController()
-module.exports = prospectControllerObj
+export default new ProspectController();
