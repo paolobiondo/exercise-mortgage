@@ -16,8 +16,8 @@ module.exports = class User {
         try {
             if(user.length == 0) {
                 const conn = await mysql.createConnection(dbConfig)
-                const querySQL = `INSERT INTO User (username,codice_fiscale) VALUES ('${this.username}', '${this.codice_fiscale}');`
-                const record =  await conn.query(querySQL)
+                const querySQL = `INSERT INTO User (username,codice_fiscale) VALUES (?,?);`
+                const record =  await conn.query(querySQL, [this.username, this.codice_fiscale])
                 if(record) console.log("User Added")
                 await conn.end()
                 return {'content':{'message':'user added'},'status':200}
@@ -32,9 +32,9 @@ module.exports = class User {
 
     static async retrieveUser(username) {
         try {
-            let querySQL = `SELECT * FROM User WHERE username='${username}'`
+            let querySQL = `SELECT * FROM User WHERE username=?`
             const conn = await mysql.createConnection(dbConfig)
-            const [rows] = await conn.query(querySQL)
+            const [rows] = await conn.query(querySQL, [username])
             let user = []
             if(rows.length > 0) {
                 user = new User(rows[0].username,rows[0].codice_fiscale)

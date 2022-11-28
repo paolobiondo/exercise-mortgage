@@ -19,8 +19,8 @@ module.exports = class Product {
         try {
             if(product.length == 0) {
                 const conn = await mysql.createConnection(dbConfig)
-                const querySQL = `INSERT INTO Product (name,bank) VALUES ('${this.name}','${this.bank}');`
-                const record =  await conn.query(querySQL)
+                const querySQL = `INSERT INTO Product (name,bank) VALUES (?,?);`
+                const record =  await conn.query(querySQL, [this.name, this.bank])
                 if(record) console.log("Product Added")
                 await conn.end()
                 return {'content':{'message':'product added'},'status':200}
@@ -35,9 +35,9 @@ module.exports = class Product {
 
     static async retrieveProduct(name) {
         try {
-            let querySQL = `SELECT * FROM Product WHERE name='${name}'`
+            let querySQL = `SELECT * FROM Product WHERE name=?`
             const conn = await mysql.createConnection(dbConfig)
-            const [rows] = await conn.query(querySQL)
+            const [rows] = await conn.query(querySQL, [name])
             let product = []
             if(rows.length > 0) {
                 product = new Product(rows[0].name,rows[0].bank)
