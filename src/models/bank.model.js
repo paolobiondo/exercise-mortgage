@@ -16,8 +16,8 @@ import dbConfig from "../configs/db.config.js";
         try {
             if(bank.length == 0) {
                 const conn = await mysql.createConnection(dbConfig)
-                const querySQL = `INSERT INTO Bank (name,additional) VALUES ('${this.name}','${JSON.stringify(this.additional)}');`
-                const record =  await conn.query(querySQL)
+                const querySQL = `INSERT INTO Bank (name,additional) VALUES (?,?);`
+                const record =  await conn.query(querySQL, [this.name, JSON.stringify(this.additional)])
                 if(record) console.log("Bank Added")
                 await conn.end()
                 return {'content':{'message':'bank added'},'status':200}
@@ -32,9 +32,9 @@ import dbConfig from "../configs/db.config.js";
 
     static async retrieveBank(name) {
         try {
-            let querySQL = `SELECT * FROM Bank WHERE name='${name}'`
+            let querySQL = `SELECT * FROM Bank WHERE name=?`
             const conn = await mysql.createConnection(dbConfig)
-            const [rows] = await conn.query(querySQL)
+            const [rows] = await conn.query(querySQL,[name])
             let bank = []
             if(rows.length > 0) {
                 bank = new Bank(rows[0].name,JSON.stringify(rows[0].additional))
@@ -49,9 +49,9 @@ import dbConfig from "../configs/db.config.js";
 
     static async retrieveBankByID(idBank) {
         try {
-            let querySQL = `SELECT * FROM Bank WHERE id='${idBank}'`
+            let querySQL = `SELECT * FROM Bank WHERE id=?`
             const conn = await mysql.createConnection(dbConfig)
-            const [rows] = await conn.query(querySQL)
+            const [rows] = await conn.query(querySQL, [idBank])
             let bank = []
             if(rows.length > 0) {
                 bank = new Bank(rows[0].name, JSON.stringify(rows[0].additional))

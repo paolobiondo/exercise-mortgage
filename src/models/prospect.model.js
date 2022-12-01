@@ -29,10 +29,8 @@ export default class Prospect {
                 additional = JSON.stringify(this.additional)
             
             const conn = await mysql.createConnection(dbConfig)
-            const querySQL = `INSERT INTO Prospect (bank, product, user, instalment, tan, taeg, additional) 
-                                VALUES ('${this.bank}','${this.product}','${this.user}','${this.instalment}','${this.tan}',
-                                '${this.taeg}','${additional}');`
-            const record =  await conn.query(querySQL)
+            const querySQL = `INSERT INTO Prospect (bank, product, user, instalment, tan, taeg, additional) VALUES (?,?,?,?,?,?,?);`
+            const record =  await conn.query(querySQL, [this.bank, this.product,this.user,this.instalment, this.tan, this.taeg, additional])
             if(record) console.log("Prospect Added")
             await conn.end()
             return {'content':{'message':'prospect added'},'status':200}
@@ -44,9 +42,9 @@ export default class Prospect {
 
     static async retrieveProspectByID(idProspect) {
         try {
-            let querySQL = `SELECT * FROM Prospect WHERE id='${idProspect}'`
+            let querySQL = `SELECT * FROM Prospect WHERE id=?`
             const conn = await mysql.createConnection(dbConfig)
-            const [rows] = await conn.query(querySQL)
+            const [rows] = await conn.query(querySQL, [idProspect])
             let prospect = []
             if(rows.length > 0) {
                 prospect = new Prospect(rows[0].bank, rows[0].product, rows[0].user, rows[0].instalment, rows[0].tan, rows[0].taeg, JSON.stringify(rows[0].additional))
