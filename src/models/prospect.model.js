@@ -1,9 +1,7 @@
-const mysql = require('mysql2/promise')
-const dbConfig = require("../configs/db.config")
+import mysql from "mysql2/promise";
+import dbConfig from "../configs/db.config.js";
 
-const bankModel = require('../models/bank.model')
-
-module.exports = class Prospect {
+export default class Prospect {
     id = null
     bank = null // integer
     product = null // integer

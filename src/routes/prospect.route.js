@@ -1,10 +1,9 @@
-const {Router} = require('express')
-const prospectController = require("../controllers/prospect.controller") 
+import express from "express";
+import ProspectController from "../controllers/prospect.controller.js";
 
-const router = Router()
+const router = express.Router();
 
-router.post('/add',prospectController.addProspect)
-router.get('/prospect',prospectController.getProspect)
+router.post("/add", ProspectController.addProspect);
+router.get("/prospect", ProspectController.getProspect);
 
-
-module.exports = router
+export default router;

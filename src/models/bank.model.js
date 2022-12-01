@@ -1,7 +1,7 @@
-const mysql = require('mysql2/promise')
-const dbConfig = require("../configs/db.config")
+import mysql from "mysql2/promise";
+import dbConfig from "../configs/db.config.js";
 
-module.exports = class Bank {
+ export default class Bank {
     id = null
     name = null
     additional = null
@@ -66,6 +66,4 @@ module.exports = class Bank {
         }
     }
 }
-
-
 
